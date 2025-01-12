@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Restauracje</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Dostępne Restauracje</h2>
+    <form class="mb-3" method="POST" action="/klient/restauracje">
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text" name="rodzaj_kuchni" id="rodzaj_kuchni" class="form-control" placeholder="Filtruj według rodzaju kuchni">
+            </div>
+            <div class="col-md-2">
+                <a href="/klient/restauracje"><button type="submit" class="btn btn-primary w-100">Filtruj</button></a>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        {% for restauracja in restauracje %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ restauracja.nazwa_restauracji }}</h5>
+                    <p class="card-text">Rodzaj kuchni: {{ restauracja.rodzaj_kuchni }}</p>
+                    <a href="{{ url_for('klient.zamowienie', restauracja_id=restauracja.id_restauracji) }}" class="btn btn-success">Zobacz Menu</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
