@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Zamówienia Restauracji</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Zamówienia</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>ID Zamówienia</th>
+            <th>Klient</th>
+            <th>Status</th>
+            <th>Data Zamówienia</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for zamowienie in zamowienia %}
+        <tr>
+            <td>{{ zamowienie.id_zamowienia }}</td>
+            <td>{{ zamowienie.imie }} {{ zamowienie.nazwisko }}</td>
+            <td>{{ zamowienie.opis }}</td>
+            <td>{{ zamowienie.data_zlozenia_zamowienia }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('restauracja.aktualizuj_status_zamowienia', zamowienie_id=zamowienie.id_zamowienia) }}">
+                    <select name="id_status_zamowienia" class="form-select form-select-sm">
+                        <option value="1" {% if zamowienie.id_status_zamowienia == 1 %}selected{% endif %}>Zamówione</option>
+                        <option value="2" {% if zamowienie.id_status_zamowienia == 2 %}selected{% endif %}>W przygotowaniu</option>
+                        <option value="3" {% if zamowienie.id_status_zamowienia == 3 %}selected{% endif %}>Gotowe</option>
+<!--                        <option value="4" {% if zamowienie.id_status_zamowienia == 4 %}selected{% endif %}>W doręczeniu</option>-->
+<!--                        <option value="5" {% if zamowienie.id_status_zamowienia == 5 %}selected{% endif %}>Dostarczone</option>-->
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2">Zapisz</button>
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
